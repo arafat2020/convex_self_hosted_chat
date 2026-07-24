@@ -176,6 +176,28 @@ services:
       cvx_backend:
         condition: service_healthy
 
+  # ---------------------------------------------------------------------------
+  # Convex Client Frontend (Next.js Standalone)
+  # ---------------------------------------------------------------------------
+  cvx_frontend:
+    build:
+      context: ./cvx_client
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_CONVEX_URL: ${NEXT_PUBLIC_CONVEX_URL:-http://127.0.0.1:${PORT:-3210}}
+        NEXT_PUBLIC_CONVEX_SITE_URL: ${NEXT_PUBLIC_CONVEX_SITE_URL:-http://127.0.0.1:${SITE_PROXY_PORT:-3211}}
+    image: softvence/convex-client-frontend:latest
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      - NEXT_PUBLIC_CONVEX_URL=${NEXT_PUBLIC_CONVEX_URL:-http://127.0.0.1:${PORT:-3210}}
+      - NEXT_PUBLIC_CONVEX_SITE_URL=${NEXT_PUBLIC_CONVEX_SITE_URL:-http://127.0.0.1:${SITE_PROXY_PORT:-3211}}
+    depends_on:
+      cvx_backend:
+        condition: service_healthy
+
 # ---------------------------------------------------------------------------
 # Named Volumes
 # ---------------------------------------------------------------------------
