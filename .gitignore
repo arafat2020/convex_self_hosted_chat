@@ -1,0 +1,13 @@
+# Secrets — never commit these
+.env
+
+# Backup archives — can be large
+backups/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
