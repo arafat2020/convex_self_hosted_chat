@@ -1,5 +1,4 @@
 # Secrets — never commit these
-.env
 
 # Backup archives — can be large
 backups/
@@ -14,3 +13,5 @@ Thumbs.db
 branch_structure.json
 temp_auto_push.bat
 temp_interactive_push.bat
+config.bat
+node_modules
